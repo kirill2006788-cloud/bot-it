@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Helper Bot - Веб-интерфейс</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <h1>IT Helper Bot</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active">Главная</a>
+                    <a href="#tools" class="nav-link">Инструменты</a>
+                    <a href="#games" class="nav-link">Игры</a>
+                    <a href="#stats" class="nav-link">Статистика</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>🤖 Добро пожаловать в IT Helper Bot!</h2>
+                    <p>Ваш персональный IT-помощник с множеством крутых функций для разработчиков и IT-специалистов.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="scrollToSection('tools')">
+                            <i class="fas fa-tools"></i> Инструменты
+                        </button>
+                        <button class="btn btn-secondary" onclick="scrollToSection('games')">
+                            <i class="fas fa-gamepad"></i> Игры
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <h3>{{ stats.total_users }}</h3>
+                            <p>Пользователей</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-gamepad"></i>
+                        <div class="stat-info">
+                            <h3>{{ stats.games_played }}</h3>
+                            <p>Игр сыграно</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tools"></i>
+                        <div class="stat-info">
+                            <h3>{{ stats.tools_used }}</h3>
+                            <p>Инструментов использовано</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <h2 class="section-title">🛠️ Инструменты</h2>
+            <div class="tools-grid">
+                <!-- Password Generator -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-key"></i>
+                        <h3>Генератор паролей</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="form-group">
+                            <label>Длина пароля:</label>
+                            <input type="range" id="password-length" min="8" max="32" value="12">
+                            <span id="password-length-value">12</span>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="include-symbols" checked>
+                                Включить символы
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="generatePassword()">
+                            <i class="fas fa-magic"></i> Сгенерировать
+                        </button>
+                        <div class="result" id="password-result"></div>
+                    </div>
+                </div>
+
+                <!-- QR Code Generator -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-qrcode"></i>
+                        <h3>QR-код генератор</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="form-group">
+                            <label>Текст для QR-кода:</label>
+                            <textarea id="qr-text" placeholder="Введите текст..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="generateQR()">
+                            <i class="fas fa-qrcode"></i> Создать QR-код
+                        </button>
+                        <div class="result" id="qr-result"></div>
+                    </div>
+                </div>
+
+                <!-- Weather Checker -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-cloud-sun"></i>
+                        <h3>Погода</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="form-group">
+                            <label>Город:</label>
+                            <input type="text" id="weather-city" placeholder="Введите город...">
+                        </div>
+                        <button class="btn btn-primary" onclick="getWeather()">
+                            <i class="fas fa-search"></i> Узнать погоду
+                        </button>
+                        <div class="result" id="weather-result"></div>
+                    </div>
+                </div>
+
+                <!-- Currency Converter -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>Конвертер валют</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="form-group">
+                            <label>Сумма:</label>
+                            <input type="number" id="currency-amount" placeholder="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Валюта:</label>
+                            <select id="currency-from">
+                                <option value="USD">USD - Доллар США</option>
+                                <option value="EUR">EUR - Евро</option>
+                                <option value="GBP">GBP - Фунт стерлингов</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="convertCurrency()">
+                            <i class="fas fa-calculator"></i> Конвертировать
+                        </button>
+                        <div class="result" id="currency-result"></div>
+                    </div>
+                </div>
+
+                <!-- Code Generator -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Генератор кода</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="form-group">
+                            <label>Язык программирования:</label>
+                            <select id="code-language">
+                                <option value="python">Python</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="java">Java</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="sql">SQL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Описание функции:</label>
+                            <textarea id="code-description" placeholder="Опишите что должна делать функция..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="generateCode()">
+                            <i class="fas fa-code"></i> Сгенерировать код
+                        </button>
+                        <div class="result" id="code-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2 class="section-title">🎮 Игры</h2>
+            <div class="games-grid">
+                <!-- Guess Number Game -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Угадай число</h3>
+                    </div>
+                    <div class="game-content">
+                        <p>Угадайте число от 1 до 100!</p>
+                        <div class="game-controls">
+                            <input type="number" id="guess-input" placeholder="Ваше число..." min="1" max="100">
+                            <button class="btn btn-primary" onclick="makeGuess()">
+                                <i class="fas fa-play"></i> Угадать
+                            </button>
+                        </div>
+                        <div class="game-info" id="guess-info"></div>
+                        <div class="game-result" id="guess-result"></div>
+                    </div>
+                </div>
+
+                <!-- Quiz Game -->
+                <div class="game-card">
+                    <div class="game-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Викторина по программированию</h3>
+                    </div>
+                    <div class="game-content">
+                        <div id="quiz-question" class="quiz-question"></div>
+                        <div id="quiz-options" class="quiz-options"></div>
+                        <div class="quiz-result" id="quiz-result"></div>
+                        <button class="btn btn-primary" onclick="startQuiz()" id="quiz-start-btn">
+                            <i class="fas fa-play"></i> Начать викторину
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <h2 class="section-title">📊 Статистика</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <h3>{{ stats.total_users }}</h3>
+                    <p>Всего пользователей</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-user-check"></i>
+                    <h3>{{ stats.active_today }}</h3>
+                    <p>Активных сегодня</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>{{ stats.games_played }}</h3>
+                    <p>Игр сыграно</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-tools"></i>
+                    <h3>{{ stats.tools_used }}</h3>
+                    <p>Инструментов использовано</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>IT Helper Bot</h3>
+                    <p>Ваш персональный IT-помощник</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://t.me/ITHelperBot" target="_blank">
+                        <i class="fab fa-telegram"></i> Telegram Bot
+                    </a>
+                    <a href="https://github.com" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 IT Helper Bot. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
