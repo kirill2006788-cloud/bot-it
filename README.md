@@ -8,28 +8,30 @@
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/Telegram-Bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/CI/CD-GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="CI/CD">
 </p>
 
 ---
 
 > Production-ready Telegram bot with modern architecture.
 
+> **Public portfolio version:** architecture + design patterns + approach.
+
 ---
 
-## ✨ Features
+## ✨ What This Project Demonstrates
 
-- 🔗 **Telegram Bot API** integration using python-telegram-bot v20+
+- 🔗 **Telegram Bot API** integration (python-telegram-bot v20+)
 - 🎯 **Command handler** system
 - 💬 **Inline keyboards** and callbacks
 - 📊 **User management** and state tracking
 - 🔄 **Async architecture** for high performance
 - 🛡️ **Error handling** and logging
-- ✅ **Type hints** throughout the codebase
+- ✅ **Type hints** throughout
 
 ---
 
 ## 🛠 Tech Stack
+
 
 | Component | Technology |
 |-----------|------------|
@@ -38,72 +40,53 @@
 | **Bot API** | Telegram Bot API |
 | **CI/CD** | GitHub Actions |
 | **Testing** | pytest + coverage |
-| **Linting** | flake8 + black |
 
 ---
 
-## 📂 Project Structure
+## 🏗 Architecture
+
 
 ```
 bot-it/
-├── bot/                   # Main bot application
-│   ├── handlers/         # Command handlers
-│   ├── keyboards/        # Inline keyboards
-│   ├── states/           # User states
-│   └── utils/            # Utilities
-│
-├── tests/                 # Unit tests
-├── .github/workflows/    # CI/CD
-├── requirements.txt      # Dependencies
-├── pyproject.toml       # Project config
-└── README.md
+bot/
+├── handlers/         # Command handlers
+├── keyboards/        # Inline keyboards
+├── states/           # User states
+└── utils/            # Utilities
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🔑 Key Features
 
-```bash
-# Clone repository
-git clone https://github.com/kirill2006788-cloud/bot-it.git
-cd bot-it
+### Bot Features
+- Multi-command support
+- Inline keyboard callbacks
+- User state management
+- Conversation flows
+- Error handling and logging
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up environment
-cp .env.example .env
-# Edit .env with your bot token
-
-# Run bot
-python -m bot.main
-```
+### Code Quality
+- Async/await patterns
+- Type hints
+- Proper error handling
+- CI/CD pipeline
 
 ---
 
-## 🔧 Configuration
+## 📦 Public Repository Contents
 
-Create `.env` file:
 
-```env
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-```
+This repo includes only:
 
----
+- ✅ Architecture overview
+- ✅ Project structure
+- ✅ CI/CD configuration
 
-## 🧪 Testing
-
-```bash
-# Run tests
-pytest
-
-# With coverage
-pytest --cov=. --cov-report=html
-
-# Lint
-flake8 .
-black .
-```
+This repo does **not** include:
+- ❌ Full source code
+- ❌ Bot token
+- ❌ Configuration files
 
 ---
 
@@ -115,5 +98,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 <div align="center">
   <p>Built with ❤️ by <a href="https://github.com/kirill2006788-cloud">Kirill</a></p>
-  <p>🤖 bot-it</p>
 </div>
